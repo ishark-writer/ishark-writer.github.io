@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愛鯊客 Ishark｜遊戲編劇・小說作者</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Iansui', sans-serif; 
+            background-color: #FFF2CC; 
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+            background-blend-mode: multiply;
+            color: #2D2A26; 
+        }
+        .font-serif-tc { font-family: 'Iansui', sans-serif; }
+        /* 隱藏水平捲軸但保留滑動功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* 展開視窗動畫 */
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-animate { animation: modalFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#B5493E]/20 selection:text-[#B5493E]">
+
+    <!-- 頂部極簡導覽 -->
+    <header class="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between">
+        <a href="#" class="font-serif-tc text-xl font-bold tracking-widest text-[#2D2A26]">
+            愛鯊客 <span class="text-xs font-normal text-[#8C857B] ml-1">Ishark</span>
+        </a>
+        <a href="mailto:ishark0081@gmail.com" class="text-sm font-bold text-white bg-[#B5493E] hover:bg-[#96382E] px-4 py-2 rounded-lg transition">
+            合作洽談
+        </a>
+    </header>
+
+    <!-- 1. 首頁簡介 (文青感大字 + 磚紅邊框視覺) -->
+    <section class="max-w-5xl mx-auto px-6 pt-4 pb-16">
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div class="min-w-0">
+                <h1 class="font-serif-tc text-[clamp(22px,2.6vw,34px)] font-bold leading-tight text-[#2D2A26] mb-4 whitespace-nowrap">
+                    嗨，我是愛鯊客（Ishark）
+                </h1>
+                <div class="space-y-2 text-[clamp(12px,1.5vw,16px)] font-semibold leading-relaxed text-[#5C574F]">
+                    <p class="whitespace-nowrap">現職是遊戲公司的編劇企劃、業餘小說家</p>
+                    <p class="whitespace-nowrap">專長是故事架構、遊戲腳本與長篇小說創作。</p>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-8">
+                    <span class="px-3 py-1 text-xs bg-[#EFECE6] text-[#5C574F] rounded-full">#手遊遊戲編劇</span>
+                    <span class="px-3 py-1 text-xs bg-[#EFECE6] text-[#5C574F] rounded-full">#職人寫實小說</span>
+                    <span class="px-3 py-1 text-xs bg-[#EFECE6] text-[#5C574F] rounded-full">#奇幻修仙網文</span>
+                    <span class="px-3 py-1 text-xs bg-[#EFECE6] text-[#5C574F] rounded-full">#文學獎得主</span>
+                </div>
+            </div>
+            <div class="relative w-full">
+                <div class="relative bg-[#EAE5DC] aspect-[16/10] overflow-hidden rounded-md">
+                    <!-- 可將 src 換成您的個人照或作者頭像 -->
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1000&q=80" 
+                         alt="愛鯊客 Ishark" 
+                         class="block w-full h-full object-cover opacity-90">
+                    <div class="absolute bottom-3 right-3 bg-[#FFF2CC]/90 backdrop-blur px-3 py-1 text-xs text-[#5C574F] font-serif-tc rounded-sm">
+                        筆耕二十載 ‧ 遊戲編劇 × 小說家
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 代表作品圖卡區 (前四格為主力，點擊展開詳細介紹) -->
+    <section class="bg-[#FFFCF5] border-y border-[#E5E0D8]">
+      <div class="max-w-4xl mx-auto px-6 py-14">
+        <div class="mb-8">
+            <h2 class="font-serif-tc text-2xl font-bold text-[#2D2A26] mb-2">代表作品</h2>
+        </div>
+
+        <!-- 主力四格 (2x2) -->
+        <div id="featured-grid" class="grid sm:grid-cols-2 gap-6 mb-10"></div>
+
+        <!-- 其他歷年作品 (較精簡的卡片列) -->
+        <h3 class="font-serif-tc text-lg font-bold text-[#5C574F] mb-4 mt-12">更多歷年創作</h3>
+        <div id="other-grid" class="grid sm:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- 3. 個人年誌 (完整保留工作與創作履歷，方便您日後自行增減) -->
+    <section class="bg-[#F8F4E8] border-y border-[#E5E0D8]">
+      <div class="max-w-4xl mx-auto px-6 py-14">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="md:col-span-1">
+                <h2 class="font-serif-tc text-lg font-bold text-[#2D2A26] flex items-center gap-3 sticky top-8">
+                    <span class="w-4 h-[1px] bg-[#2D2A26]"></span> 個人年誌
+                </h2>
+            </div>
+
+            <!-- 欲增減年誌，直接複製或刪除下方的 div 區塊即可 -->
+            <div class="md:col-span-3 space-y-5 text-sm sm:text-base">
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#B5493E]">現職</div>
+                    <div class="col-span-3 text-[#4A4640]">於手遊公司擔任<strong class="text-[#2D2A26]">遊戲編劇</strong>，負責劇情與世界觀撰寫</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2024</div>
+                    <div class="col-span-3 text-[#4A4640]">《轉生成豬的我，突破只能靠雙修》連載開始，並榮獲 Penana 年度排行榜 第二名</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2023</div>
+                    <div class="col-span-3 text-[#4A4640] space-y-1">
+                        <p>參與教育部海洋文學計劃，創作《海洋拉霸機》</p>
+                        <p>開始連載《無望世界》，與 Penana 簽約成為駐站作家</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2022</div>
+                    <div class="col-span-3 text-[#4A4640]">撰寫長篇職人小說《安樂犬的畢業祭》（後續正式出版）</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2021</div>
+                    <div class="col-span-3 text-[#4A4640]">與遊戲公司簽約合作，擔任編劇撰寫遊戲腳本</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2020</div>
+                    <div class="col-span-3 text-[#4A4640]">撰寫多部同人小說，主攻成人男性向市場</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2019</div>
+                    <div class="col-span-3 text-[#4A4640] space-y-1">
+                        <p>成為網路小說家，完成第一部連載《紅鯊》</p>
+                        <p class="text-xs text-[#7A746B]">（2019–2024 年於台灣檢驗公司任職，擔任實驗室檢驗人員）</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2018</div>
+                    <div class="col-span-3 text-[#4A4640]">作品《畢業輓歌》與鏡文學簽約</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2017</div>
+                    <div class="col-span-3 text-[#4A4640]">作品《畢業輓歌》獲新北市文學獎－成人組職場書寫類 第三名</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2016–2019</div>
+                    <div class="col-span-3 text-[#4A4640]">於生技公司任職，擔任動物飼育員</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-5 border-b border-[#E5E0D8]">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">2009</div>
+                    <div class="col-span-3 text-[#4A4640]">作品《失戀》獲青年世紀文學獎－高中部新詩組 第二名</div>
+                </div>
+                <div class="grid grid-cols-4 gap-4 pb-2">
+                    <div class="font-serif-tc font-bold text-[#2D2A26]">1991</div>
+                    <div class="col-span-3 text-[#4A4640]">12 月出生於台灣，國中起開始創作至今</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 頁尾聯絡 -->
+    <footer class="max-w-4xl mx-auto px-6 py-16 border-t border-[#E5E0D8] text-center">
+        <p class="font-serif-tc text-lg text-[#2D2A26] mb-2">寫作、劇本合作與讀者交流</p>
+        <p class="text-sm text-[#7A746B] mb-6">無論是遊戲劇本開發、出版邀約或讀者來信，都歡迎聯繫。</p>
+        <a href="mailto:ishark0081@gmail.com" class="inline-block px-6 py-3 bg-[#B5493E] hover:bg-[#96382E] text-white text-sm font-medium rounded-lg transition">
+            ishark0081@gmail.com
+        </a>
+        <p class="mt-12 text-xs text-[#9E978E]">© 2026 愛鯊客 Ishark. All Rights Reserved.</p>
+    </footer>
+
+    <!-- 作品展開詳細視窗 (Modal) -->
+    <div id="work-modal" class="fixed inset-0 z-50 hidden bg-[#FFF2CC]/95 backdrop-blur-md overflow-y-auto">
+        <!-- 頂部固定返回列 -->
+        <div class="sticky top-0 z-10 bg-[#FFF2CC]/90 backdrop-blur border-b border-[#E5E0D8] px-6 h-16 flex items-center justify-between max-w-4xl mx-auto">
+            <button onclick="closeModal()" class="flex items-center gap-2 text-sm font-bold text-[#2D2A26] hover:text-[#B5493E] transition py-2">
+                <span class="text-lg">←</span> 返回作品列表
+            </button>
+            <span id="modal-badge" class="text-xs font-bold px-2.5 py-1 rounded bg-[#EFECE6] text-[#5C574F]"></span>
+        </div>
+
+        <!-- 展開內容區 -->
+        <div id="modal-content" class="max-w-3xl mx-auto px-6 py-10 modal-animate">
+            <!-- 多圖左右滑動區 -->
+            <div id="modal-gallery-wrap" class="mb-8">
+                <div id="modal-gallery" class="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2">
+                    <!-- 圖片由 JS 動態填入 -->
+                </div>
+                <p id="gallery-hint" class="text-xs text-[#8C857B] mt-2 text-center hidden">← 左右滑動查看更多圖片 →</p>
+            </div>
+
+            <h2 id="modal-title" class="font-serif-tc text-2xl sm:text-3xl font-bold text-[#2D2A26] mb-3"></h2>
+            <p id="modal-status" class="text-sm font-medium text-[#B5493E] mb-6"></p>
+
+            <div class="space-y-6 text-[#4A4640] text-sm sm:text-base leading-relaxed border-t border-[#E5E0D8] pt-6">
+                <div>
+                    <h4 class="font-serif-tc font-bold text-[#2D2A26] mb-1">作品簡介</h4>
+                    <p id="modal-intro"></p>
+                </div>
+                <div id="modal-outline-box">
+                    <h4 class="font-serif-tc font-bold text-[#2D2A26] mb-1">故事大綱</h4>
+                    <p id="modal-outline"></p>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-[#E5E0D8] flex justify-end">
+                <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-[#B5493E] hover:bg-[#96382E] text-white text-sm font-bold rounded-lg transition shadow-md">
+                    <span id="modal-link-label">前往作品頁面 ↗</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作品資料庫與互動腳本 -->
+    <script>
+        // 您可以隨時在這裡修改圖片網址、文字或連結
+        const worksData = [
+            // --- 主力四格 (依您指定的順序) ---
+            {
+                id: "pig",
+                featured: true,
+                is18Plus: true,
+                tag: "熱門連載",
+                title: "《轉生成豬的我，突破只能靠雙修》",
+                status: "Penana 2024 年度排行榜 TOP 15 ‧ 授權泰國翻譯 ‧ 洽談出版中",
+                intro: "目前全心投入的主力長篇！結合異世界穿越、修仙突破與反派視角的輕鬆爽文，節奏明快、設定獨特。",
+                outline: "主角轉生成豬後偶然開啟了靈智，發現自己來到了修仙世界，並具有與妹子雙修就能提升修為的能力，從此展開他顛覆修仙界、不凡的一生。",
+                link: "https://www.penana.com/story/150456",
+                linkLabel: "前往 Penana 閱讀 ↗",
+                imagePlaceholder: "封面待補",
+                images: []
+            },
+            {
+                id: "dog",
+                featured: true,
+                is18Plus: false,
+                tag: "實體出版",
+                title: "《安樂犬的畢業祭》",
+                status: "鏡文學簽約作品 ‧ 釀出版／秀威出版發行",
+                intro: "改編自新北文學獎獲獎作《畢業輓歌》，更詳細講述了關於動物實驗的秘辛，並安排了不少具有趣味性、並能讓人感動的橋段，增加作品的耐看性。",
+                outline: "在理性的科學實驗與感性的生命陪伴之間，描繪實驗動物飼育員不為人知的職場掙扎與溫柔。",
+                link: "https://www.books.com.tw/products/0011047234?srsltid=AYCX9vLlLtv8ZdULE13C64hTk3ja31ZakBTxB9rLMizSPsWzOCzzVR0J",
+                linkLabel: "博客來購買 ↗",
+                images: [
+                    "https://store.showwe.tw/bookpic/9786264121651_01.jpg"
+                ]
+            },
+            {
+                id: "game",
+                featured: true,
+                is18Plus: false,
+                tag: "",
+                title: "遊戲編劇",
+                status: "現職遊戲公司的編劇企劃",
+                intro: "專長是故事架構與遊戲腳本創作。",
+                outline: "",
+                link: "",
+                images: []
+            },
+            {
+                id: "ocean",
+                featured: true,
+                is18Plus: false,
+                tag: "教育部合作",
+                title: "《海洋拉霸機》",
+                status: "6 萬字完結 ‧ 已印製初稿，教育部合作海洋文學",
+                intro: "目標受眾為國高中學生，主要將艱深、嚴肅、關於台灣遠洋漁業的議題，以輕鬆易讀的方式融入作品，富有教育意義同時不失趣味性。",
+                outline: "主角明誠在家族責任與個人理想間掙扎，透過募資計劃拯救瀕臨困境的家業。過程中意外揭露外籍移工哈迪在台灣漁業遭受的艱難處境，最終成功主持募款餐會，為移工爭取權益。",
+                link: "https://docs.google.com/document/d/1r80oTFIZI_GXq15URnSU3d49ycNUhi8X7QllaIM7Ums/edit?usp=sharing",
+                images: [
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            // --- 其他歷年創作 ---
+            {
+                id: "hopeless",
+                featured: false,
+                is18Plus: true,
+                tag: "奇幻冒險",
+                title: "《無望世界》",
+                status: "20.2 萬字（停止更新中）‧ Penana 駐站作家簽約作",
+                intro: "以王道劇情為核心、著重戰鬥描寫的異世界轉生小說，巧妙結合魂系遊戲設定與緊張刺激的戰鬥場景。",
+                outline: "主角凱因轉生到瀕臨滅絕的異世界，唯一的能力便是「復活」。他憑藉無數次復活探索對手弱點，踏上改變命運的旅程。",
+                link: "https://www.penana.com/story/84133",
+                images: ["https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=800&q=80"]
+            },
+            {
+                id: "elegy",
+                featured: false,
+                is18Plus: false,
+                tag: "文學獎獲獎",
+                title: "《畢業輓歌》",
+                status: "第 7 屆新北市文學獎 成人組職場書寫類 第三名",
+                intro: "以科幻懸疑小說的敘事手法，講述主角在生技公司照顧實驗動物的經歷與心境，聚焦於醫療進步與動物犧牲兩種價值觀的碰撞。",
+                outline: "",
+                link: "https://www.culture.ntpc.gov.tw/files/file_pool/1/0I003426835784063657.pdf",
+                images: ["https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"]
+            },
+            {
+                id: "redshark",
+                featured: false,
+                is18Plus: false,
+                tag: "懸疑驚悚",
+                title: "《紅鯊》",
+                status: "11 萬字 ‧ 鏡文學簽約作（初次網路連載）",
+                intro: "結合生存遊戲與懸疑驚悚元素的作品，探討道德抉擇、生死試煉與人性信任。",
+                outline: "主角被迫加入神秘組織「紅鯊」後，在驚險任務中對抗操控並揭露背後險惡真相，最終尋求自由與救贖。",
+                link: "https://www.penana.com/story/49362",
+                images: ["https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=800&q=80"]
+            },
+            {
+                id: "heartbreak",
+                featured: false,
+                is18Plus: false,
+                tag: "新詩獲獎",
+                title: "《失戀》",
+                status: "青年世紀文學獎 高中部新詩組 第二名",
+                intro: "高中時代創作的新詩作品，開啟了持續二十餘年的文學創作之路。（因年代久遠，原文已不可考）",
+                outline: "",
+                link: "",
+                images: ["https://images.unsplash.com/photo-1474932430478-367dbb6832c1?auto=format&fit=crop&w=800&q=80"]
+            }
+        ];
+
+        // 渲染圖卡
+        const featuredGrid = document.getElementById('featured-grid');
+        const otherGrid = document.getElementById('other-grid');
+
+        worksData.forEach(work => {
+            const badge18 = work.is18Plus 
+                ? `<span class="inline-flex h-6 min-w-[2.5rem] items-center justify-center text-center px-2 text-[10px] font-bold bg-[#B5493E] text-white rounded">18+</span>` 
+                : '';
+            const cardImage = work.images && work.images.length
+                ? `<img src="${work.images[0]}" alt="${work.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">`
+                : `<div class="w-full h-full flex items-center justify-center text-sm text-[#8C857B]">${work.imagePlaceholder || ''}</div>`;
+
+            if (work.featured) {
+                featuredGrid.innerHTML += `
+                    <div onclick="openModal('${work.id}')" class="cursor-pointer group bg-white border border-[#E5E0D8] rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                        <div class="aspect-[16/10] bg-[#EFECE6] overflow-hidden relative">
+                            ${cardImage}
+                            <div class="absolute top-3 left-3 flex gap-1.5">
+                                ${work.tag ? `<span class="bg-[#2D2A26]/90 text-[#FFF2CC] text-xs px-2.5 py-1 rounded">${work.tag}</span>` : ''}
+                                ${badge18}
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif-tc text-lg font-bold text-[#2D2A26] group-hover:text-[#B5493E] transition mb-1.5">${work.title}</h3>
+                            <p class="text-xs text-[#7A746B] line-clamp-2 leading-relaxed">${work.intro}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                otherGrid.innerHTML += `
+                    <div onclick="openModal('${work.id}')" class="cursor-pointer group bg-white/70 border border-[#E5E0D8] rounded-lg p-4 hover:bg-white hover:shadow-md transition flex items-center justify-between gap-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[11px] font-medium text-[#8C857B]">${work.tag}</span>
+                                ${badge18}
+                            </div>
+                            <h4 class="font-serif-tc font-bold text-[#2D2A26] group-hover:text-[#B5493E] transition">${work.title}</h4>
+                        </div>
+                        <span class="text-[#8C857B] group-hover:text-[#B5493E] text-sm">查看 →</span>
+                    </div>
+                `;
+            }
+        });
+
+        // 展開與關閉視窗邏輯
+        const modal = document.getElementById('work-modal');
+        function openModal(id) {
+            const work = worksData.find(w => w.id === id);
+            if (!work) return;
+
+            const modalBadge = document.getElementById('modal-badge');
+            modalBadge.textContent = work.is18Plus ? `${work.tag} ‧ 18+` : work.tag;
+            modalBadge.classList.toggle('hidden', !work.tag && !work.is18Plus);
+            document.getElementById('modal-title').textContent = work.title;
+            document.getElementById('modal-status').textContent = work.status;
+            document.getElementById('modal-intro').textContent = work.intro;
+
+            const outlineBox = document.getElementById('modal-outline-box');
+            if (work.outline) {
+                outlineBox.classList.remove('hidden');
+                document.getElementById('modal-outline').textContent = work.outline;
+            } else {
+                outlineBox.classList.add('hidden');
+            }
+
+            const linkBtn = document.getElementById('modal-link');
+            if (work.link) {
+                linkBtn.classList.remove('hidden');
+                linkBtn.href = work.link;
+                document.getElementById('modal-link-label').textContent = work.linkLabel || '前往作品頁面 ↗';
+            } else {
+                linkBtn.classList.add('hidden');
+            }
+
+            // 填入多圖滑動區
+            const gallery = document.getElementById('modal-gallery');
+            const galleryWrap = document.getElementById('modal-gallery-wrap');
+            if (work.images && work.images.length) {
+                galleryWrap.classList.remove('hidden');
+                gallery.innerHTML = work.images.map(img => `
+                    <img src="${img}" alt="${work.title}" class="snap-center shrink-0 w-full sm:w-[85%] aspect-[16/10] object-cover rounded-xl border border-[#E5E0D8] bg-[#EFECE6]">
+                `).join('');
+            } else {
+                gallery.innerHTML = '';
+                galleryWrap.classList.add('hidden');
+            }
+
+            const hint = document.getElementById('gallery-hint');
+            work.images.length > 1 ? hint.classList.remove('hidden') : hint.classList.add('hidden');
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 鎖定背景捲動
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
+
